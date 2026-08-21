@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Monitor de Sensores</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- =========================================
+             SECCIÓN SUPERIOR
+             ========================================= -->
+        <header class="panel-superior">
+
+            <!-- Número de sensores -->
+            <section class="panel-resumen">
+
+                <span class="titulo-panel">
+                    SENSORES
+                </span>
+
+                <span id="cantidad-sensores" class="valor-grande">
+                    --
+                </span>
+
+                <span class="subtitulo-panel">
+                    CONECTADOS
+                </span>
+
+            </section>
+
+
+            <!-- Estado general -->
+            <section id="estado-general" class="panel-estado">
+
+                <span class="titulo-panel">
+                    ESTADO
+                </span>
+
+                <span id="estado-texto" class="estado-texto">
+                    --
+                </span>
+
+            </section>
+
+
+            <!-- Selector de vista -->
+            <button id="selector-vista" class="panel-selector">
+
+                <span class="titulo-panel">
+                    VISUALIZAR
+                </span>
+
+                <span id="vista-texto" class="vista-texto">
+                    TODO
+                </span>
+
+                <span class="indicador-selector">
+                    ›
+                </span>
+
+            </button>
+
+        </header>
+
+
+        <!-- =========================================
+             SECCIÓN INFERIOR
+             ========================================= -->
+        <main id="area-visualizacion" class="area-visualizacion">
+
+            <!-- JavaScript colocará aquí el contenido -->
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html> 

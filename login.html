@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login de Usuario</title>
+  <link rel="stylesheet" href="style2.css">
+
+</head>
+
+<body>
+  <div class="app" id="app">
+
+    <!-- ───────────── Login ───────────── -->
+    <div id="view-login" class="login-wrap">
+      <div class="login card panel">
+        <div class="row" style="justify-content:space-between; align-items:center;">
+          <div class="brand-lg">Dashboard</div>
+          <span class="pill">Versión 1.0</span>
+        </div>
+        <p class="muted">Inicia sesión para continuar.</p>
+
+        <div class="grid">
+          <div class="field">
+            <label class="label">Correo</label>
+            <input id="email" class="input" type="email" autocomplete="username" placeholder="tu correo" />
+          </div>
+          <div class="field">
+            <label class="label">Contraseña</label>
+            <input id="password" class="input" type="password" autocomplete="current-password" placeholder="••••••••" />
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:.5rem; justify-content:space-between">
+          <label class="row" style="gap:.5rem">
+            <input type="checkbox" id="remember" />
+            <span class="muted">Recordarme</span>
+          </label>
+        </div>
+
+        <div class="row" style="margin-top:1rem; justify-content:flex-end;">
+          <button id="btnLogin" class="btn primary">Entrar</button>
+        </div>
+
+      </div>
+    </div>
+    <script>
+      // Unas variables globales
+      let codigosCacheExists = true; // asumimos
+      let timeStamp;
+      const email_ = document.getElementById('email');
+      const password_ = document.getElementById('password');
+      const boton = document.getElementById('btnLogin');
+
+      function validar() {
+        const correo = email_.value.trim() !== '';
+        const contra = password_.value.trim() !== '';
+        boton.disabled = !(correo && contra);
+        console.log("el valor es: ", boton.disabled);
+      }
+
+      [email_, password_].forEach(inp => inp.addEventListener('input', validar));
+
+
+      const respuestaServidor = {
+        // Arreglo JSON 
+        sensores: [
+
+          {
+            numero: 1,
+            nombre: "Agua",
+            tipo: "ON_OFF",
+            estado: true
+          },
+
+          {
+            numero: 2,
+            nombre: "Puerta",
+            tipo: "ON_OFF",
+            estado: false
+          },
+
+          {
+            numero: 3,
+            nombre: "Nivel ",
+            tipo: "ON_OFF",
+            estado: true
+          },
+
+          {
+            numero: 4,
+            nombre: "el Ventilador",
+            tipo: "ON_OFF",
+            estado: false
+          },
+
+          {
+            numero: 5,
+            nombre: "la Alarma",
+            tipo: "ON_OFF",
+            estado: true
+          }
+
+        ]
+
+      };
+
+      // Al momento de cargar el documento...
+      window.addEventListener('DOMContentLoaded', () => {
+        // Eliminar siempre el objeto sensores
+        if (sessionStorage.getItem('sensores') !== null) {
+          sessionStorage.removeItem('sensores');
+          console.log('Se han removido los datos de los sensores');
+        } else {
+          console.log('No existían los sensores...');
+        }
+
+        /*sessionStorage.removeItem('asociados');      
+        Folio:  360287971171148473
+  
+        Password: df&Bc)F9
+        
+        script.google.com   <--- 
+        
+        Email: poder8bits@gmail.com
+         Contraseña: qgA01uSf
+        */
+
+
+      });
+
+
+      document.getElementById('btnLogin').addEventListener('click', async () => {
+        //
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        boton.textContent = "Espere unos segundos por favor...";
+        boton.disabled = true; // Deshabilitar el botón
+
+        const message = document.getElementById('message');
+        const destino = "login";
+        //message.style.display = 'none';      
+
+        if (!email || !password) {
+          message.textContent = 'Por favor completa los campos.';
+          message.style.display = 'block';
+          return;
+        }
+
+        // 2) Armar body para GAS con flags
+        const body = {
+          destino,
+          email,
+          password
+        };
+
+        try {
+          const response = await fetch(URL_ACTIVA, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            //body: JSON.stringify({ destino, email, password }) // JSON.stringify() toma un objeto de JavaScript y lo transforma en una cadena JSON.
+            body: JSON.stringify(body)  // Convertir a JSON explícitamente
+          });
+
+          const result = await response.json();
+          console.log("Resultado: ", result.success);
+
+          if (result.success) {
+            console.log('Login exitoso. ¡Bienvenido!');            
+            const losDatos = result.data;
+            console.log("Ahora los datos: ", losDatos.sensores);
+            console.log('Número de sensores: ', losDatos.sensores.length);
+            //console.log("comparando con.... ", respuestaServidor);
+            console.log('Almacenando los valores.');
+            sessionStorage.setItem("sensores", JSON.stringify(losDatos.sensores));
+            window.location.href = 'index.html'; // Redirige a otra página.
+          } else {
+            //message.textContent = result.message || 'Credenciales incorrectas.';
+            console.log("No entró: " + result.message);
+            message.style.display = 'block';
+            throw new Error(result.message || "Credenciales inválidas");
+          }
+        } catch (error) {
+          message.textContent = 'Error en la conexión al servidor.';
+          message.style.display = 'block';
+          console.error('Error:', error);
+        }
+      });
+    </script>
+
+    <script src="utilidades.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,464 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f2f3f5;
+    color: #202124;
+}
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================
+   SECCIÓN SUPERIOR
+   ========================================= */
+
+.panel-superior {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+
+    gap: 12px;
+
+    padding: 12px;
+}
+
+
+/* =========================================
+   PANELES SUPERIORES
+   ========================================= */
+
+.panel-resumen,
+.panel-estado,
+.panel-selector {
+    min-height: 130px;
+
+    border: none;
+    border-radius: 16px;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+
+/* =========================================
+   TEXTOS
+   ========================================= */
+
+.titulo-panel {
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+
+    opacity: 0.55;
+}
+
+.subtitulo-panel {
+    font-size: 0.70rem;
+    font-weight: 600;
+
+    letter-spacing: 0.10em;
+
+    opacity: 0.50;
+}
+
+.valor-grande {
+    font-size: 3rem;
+    font-weight: 700;
+
+    line-height: 1.1;
+
+    margin: 4px 0;
+}
+
+
+/* =========================================
+   ESTADO GENERAL
+   ========================================= */
+
+.estado-texto {
+    margin-top: 5px;
+
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.panel-estado.ok {
+    background-color: #e8f5e9;
+}
+
+.panel-estado.ok .estado-texto {
+    color: #2e7d32;
+}
+
+.panel-estado.error {
+    background-color: #ffebee;
+}
+
+.panel-estado.error .estado-texto {
+    color: #c62828;
+}
+
+
+/* =========================================
+   SELECTOR DE VISTA
+   ========================================= */
+
+.panel-selector {
+    cursor: pointer;
+
+    font-family: inherit;
+
+    border: none;
+
+    transition:
+        transform 0.12s ease,
+        background-color 0.12s ease;
+}
+
+.panel-selector:hover {
+    background-color: #fafafa;
+}
+
+.panel-selector:active {
+    transform: scale(0.97);
+}
+
+.vista-texto {
+    margin-top: 7px;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    text-align: center;
+
+    max-width: 90%;
+}
+
+.indicador-selector {
+    position: absolute;
+
+    right: 12px;
+
+    font-size: 1.8rem;
+
+    opacity: 0.35;
+}
+
+
+/* =========================================
+   ÁREA INFERIOR
+   ========================================= */
+
+.area-visualizacion {
+    flex: 1;
+
+    padding: 12px;
+}
+
+
+/* =========================================
+   VISTA: TODOS LOS SENSORES
+   ========================================= */
+
+.contenedor-sensores {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 14px;
+}
+
+
+/* =========================================
+   TARJETA DE SENSOR
+   ========================================= */
+
+.sensor-card {
+    background-color: white;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    border: 1px solid #e5e7eb;
+}
+
+
+/* =========================================
+   ENCABEZADO DE TARJETA
+   ========================================= */
+
+.sensor-numero {
+    font-size: 0.75rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    opacity: 0.5;
+}
+
+.sensor-nombre {
+    margin-top: 6px;
+
+    font-size: 1.1rem;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   ESTADO DEL SENSOR
+   ========================================= */
+
+.sensor-estado {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+}
+
+.indicador-estado {
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+}
+
+.sensor-card.on .indicador-estado {
+    background-color: #43a047;
+}
+
+.sensor-card.off .indicador-estado {
+    background-color: #9e9e9e;
+}
+
+.sensor-card.on .sensor-estado {
+    color: #2e7d32;
+}
+
+.sensor-card.off .sensor-estado {
+    color: #616161;
+}
+
+
+/* =========================================
+   VISTA INDIVIDUAL
+   ========================================= */
+
+.sensor-detalle {
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 16px;
+
+    padding: 24px;
+
+    min-height: 400px;
+}
+
+.detalle-numero {
+    font-size: 0.8rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.1em;
+
+    opacity: 0.5;
+}
+
+.detalle-nombre {
+    margin-top: 5px;
+
+    font-size: 1.7rem;
+
+    font-weight: 700;
+}
+
+.detalle-estado {
+    margin-top: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+}
+
+.detalle-indicador {
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+}
+
+.sensor-detalle.on .detalle-indicador {
+    background-color: #43a047;
+}
+
+.sensor-detalle.off .detalle-indicador {
+    background-color: #9e9e9e;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+/* Móviles */
+@media (max-width: 600px) {
+
+    .panel-superior {
+        grid-template-columns:
+            1fr 1.4fr 1fr;
+
+        gap: 8px;
+
+        padding: 8px;
+    }
+
+    .panel-resumen,
+    .panel-estado,
+    .panel-selector {
+        min-height: 105px;
+
+        border-radius: 12px;
+    }
+
+    .valor-grande {
+        font-size: 2.2rem;
+    }
+
+    .estado-texto {
+        font-size: 1.4rem;
+    }
+
+    .titulo-panel {
+        font-size: 0.62rem;
+    }
+
+    .subtitulo-panel {
+        font-size: 0.58rem;
+    }
+
+    .vista-texto {
+        font-size: 0.8rem;
+    }
+
+    .indicador-selector {
+        right: 7px;
+        font-size: 1.4rem;
+    }
+
+    .area-visualizacion {
+        padding: 8px;
+    }
+
+    .contenedor-sensores {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+    }
+
+    .sensor-card {
+        min-height: 150px;
+
+        padding: 15px;
+
+        border-radius: 12px;
+    }
+
+    .sensor-nombre {
+        font-size: 0.95rem;
+    }
+
+    .sensor-estado {
+        font-size: 1rem;
+    }
+
+    .sensor-detalle {
+        padding: 18px;
+
+        min-height: 350px;
+    }
+
+    .detalle-nombre {
+        font-size: 1.4rem;
+    }
+}
+
+
+/* Pantallas muy pequeñas */
+@media (max-width: 360px) {
+
+    .panel-superior {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .panel-selector {
+        grid-column: 1 / -1;
+
+        min-height: 80px;
+    }
+
+    .contenedor-sensores {
+        grid-template-columns: 1fr;
+    }
+}
